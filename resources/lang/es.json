@@ -1,5 +1,6 @@
 {
     "E-Mail Address": "Correo electrónico",
+    "Email Address": "Correo electrónico",
     "Password": "Contraseña",
     "Remember Me": "Recuérdame",
     "Login": "Acceder",
@@ -32,5 +33,6 @@
     "All rights reserved.":  "Todos los derechos reservados.",
 
 
-    "Users":  "Usuarios"
+    "Users":  "Usuarios",
+    "Home":  "Inicio"
 }
