@@ -1,23 +1,40 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-10">
-                <div class="card">
-                    <div class="card-header">{{ __('Home') }}</div>
+    <x-card title="Home">
+        <div class="row">
+            <div class="d-flex col-sm-12 mb-5">
+                <img src="{!! asset('images/pqr-logo.png') !!}" alt="pqr-logo.png" width="50" height="50">
 
-                    <div class="card-body">
-                        @if (session('status'))
-                            <div class="alert alert-success" role="alert">
-                                {{ session('status') }}
-                            </div>
-                        @endif
+                <h1 class="w-100 mt-2 text-center">PQR</h1>
+            </div>
 
-                        {{ __('You are logged in!') }}
-                    </div>
+            <div class="col-sm-12 px-4">
+
+                <h3>{{ __('Introduction') }}</h3>
+                <p class="text-justify">
+                    {{ __('pqr.introduction') }}
+                </p>
+
+                <br>
+
+                <h3>{{ __('Definition') }}</h3>
+                <p class="text-justify">
+                    {{ __('pqr.definition_1') }}
+                </p>
+
+                <br>
+
+                <p class="text-justify">
+                    {{ __('pqr.definition_2') }}
+                </p>
+
+                <div class="text-end">
+                    <a class="btn btn-success" href="{{ route('user.index') }}">
+                        {{ __('Create a PQR') }}
+                    </a>
                 </div>
             </div>
         </div>
-    </div>
+    </x-card>
 @endsection

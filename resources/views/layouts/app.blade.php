@@ -63,7 +63,7 @@
                                 <a class="nav-link" href="{{ route('user.index') }}">{{ __('Users') }}</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('register') }}">{{ __('PQR') }}</a>
+                                <a class="nav-link" href="{{ route('register') }}">PQR</a>
                             </li>
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
@@ -90,7 +90,9 @@
         </nav>
 
         <main class="py-4">
-            @yield('content')
+            <div class="container">
+                @yield('content')
+            </div>
         </main>
     </div>
 </body>
