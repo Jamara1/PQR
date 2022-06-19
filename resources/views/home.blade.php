@@ -29,11 +29,13 @@
                     {{ __('pqr.definition_2') }}
                 </p>
 
-                <div class="text-end">
-                    <a class="btn btn-success" href="{{ route('user.index') }}">
-                        {{ __('Create a PQR') }}
-                    </a>
-                </div>
+                @can('user.index')
+                    <div class="text-end">
+                        <a class="btn btn-success" href="{{ route('pqr.index') }}">
+                            {{ __('Create a PQR') }}
+                        </a>
+                    </div>
+                @endcan
             </div>
         </div>
     </x-card>

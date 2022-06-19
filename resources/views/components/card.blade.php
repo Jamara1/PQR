@@ -5,22 +5,20 @@
         <div class="card">
             <div class="card-header">
                 <div class="row">
-                    <div class="col-sm-10 mt-1">
+                    <div class="col-sm-10 mt-2">
                         {{ __($title) }}
                     </div>
 
                     @if ($showCreate)
                         <div class="col-sm-2 text-end">
-                            <a class="btn btn-dark pb-0 px-2 pt-1" href="{{ route($routeCreate) }}">
-                                <span class="material-icons fs-5">
-                                    add
-                                </span>
+                            <a class="btn btn-warning text-white" href="{{ route($routeCreate) }}">
+                                {{ __('New') }}
                             </a>
                         </div>
                     @endif
                 </div>
-
             </div>
+
             <div class="card-body">
                 {{ $slot }}
             </div>

@@ -67,7 +67,7 @@
                                 <a class="nav-link" href="{{ route('home') }}">{{ __('Home') }}</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('user.index') }}">{{ __('Users') }}</a>
+                                <a class="nav-link" href="{{ route('usuarios.index') }}">{{ __('Users') }}</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('register') }}">PQR</a>

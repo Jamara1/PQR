@@ -2,11 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\UserRequest;
-use App\Models\User;
 use Illuminate\Http\Request;
 
-class UserController extends Controller
+class PQRController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -15,10 +13,10 @@ class UserController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('permission: user.index | user.create | user.edit | user.delete', ['only' => ['index']]);
-        $this->middleware('permission: user.create', ['only' => ['create', 'store']]);
-        $this->middleware('permission: user.edit', ['only' => ['edit', 'update']]);
-        $this->middleware('permission: user.delete', ['only' => ['destroy']]);
+        $this->middleware('permission: pqr.index | pqr.create | pqr.edit | pqr.delete', ['only' => ['show']]);
+        $this->middleware('permission: pqr.create', ['only' => ['create', 'store']]);
+        $this->middleware('permission: pqr.edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission: pqr.delete', ['only' => ['destroy']]);
     }
 
     /**
@@ -28,7 +26,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view('user.index');
+        //
     }
 
     /**
@@ -47,12 +45,9 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(UserRequest $request)
+    public function store(Request $request)
     {
-        $user = User::create($request);
-        $user->assignRole(1);
-
-        return $user;
+        //
     }
 
     /**

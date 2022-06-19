@@ -22,4 +22,8 @@ Auth::routes();
 
 Route::get('/inicio', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::resource('user', App\Http\Controllers\UserController::class);
+
+Route::group(['middleware' => ['auth']], function() {
+    Route::resource('usuarios', App\Http\Controllers\UserController::class);
+    Route::resource('pqr', App\Http\Controllers\PQRController::class);
+});
