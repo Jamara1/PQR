@@ -21,8 +21,7 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
     <!-- Material icon styles -->
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-      rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
     <!-- Datatables styles -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
@@ -66,11 +65,15 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('home') }}">{{ __('Home') }}</a>
                             </li>
+
+                            @can('user.index')
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('usuarios.index') }}">{{ __('Users') }}</a>
+                                </li>
+                            @endcan
+
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('usuarios.index') }}">{{ __('Users') }}</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('register') }}">PQR</a>
+                                <a class="nav-link" href="{{ route('pqr.index') }}">PQR</a>
                             </li>
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"

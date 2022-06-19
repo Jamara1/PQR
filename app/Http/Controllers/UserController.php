@@ -15,10 +15,10 @@ class UserController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('permission: user.index | user.create | user.edit | user.delete', ['only' => ['index']]);
-        $this->middleware('permission: user.create', ['only' => ['create', 'store']]);
-        $this->middleware('permission: user.edit', ['only' => ['edit', 'update']]);
-        $this->middleware('permission: user.delete', ['only' => ['destroy']]);
+        $this->middleware('permission:user.index|user.create|user.edit|user.delete', ['only' => ['index']]);
+        $this->middleware('permission:user.create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:user.edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:user.delete', ['only' => ['destroy']]);
     }
 
     /**
@@ -50,7 +50,7 @@ class UserController extends Controller
     public function store(UserRequest $request)
     {
         $user = User::create($request);
-        $user->assignRole(1);
+        $user->assignRole('admin');
 
         return $user;
     }

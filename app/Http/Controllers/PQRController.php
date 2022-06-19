@@ -13,10 +13,10 @@ class PQRController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('permission: pqr.index | pqr.create | pqr.edit | pqr.delete', ['only' => ['show']]);
-        $this->middleware('permission: pqr.create', ['only' => ['create', 'store']]);
-        $this->middleware('permission: pqr.edit', ['only' => ['edit', 'update']]);
-        $this->middleware('permission: pqr.delete', ['only' => ['destroy']]);
+        $this->middleware('permission:pqr.index|pqr.create|pqr.edit|pqr.delete', ['only' => ['index']]);
+        $this->middleware('permission:pqr.create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:pqr.edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:pqr.delete', ['only' => ['destroy']]);
     }
 
     /**
@@ -26,7 +26,7 @@ class PQRController extends Controller
      */
     public function index()
     {
-        //
+        return view('pqr.index');
     }
 
     /**
