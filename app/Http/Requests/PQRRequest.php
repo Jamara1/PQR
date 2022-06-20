@@ -13,7 +13,7 @@ class PQRRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,10 @@ class PQRRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'user_id' => 'required|numeric|exists:users,id',
+            'pqr_type_id' => 'required|numeric|exists:pqr_types,id',
+            'subject' => 'required|string|min:5|max:200',
+            'deadline_date' => 'required|date',
         ];
     }
 }

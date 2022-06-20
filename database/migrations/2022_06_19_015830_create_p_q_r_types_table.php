@@ -14,7 +14,8 @@ return new class extends Migration
     public function up()
     {
         Schema::create('pqr_types', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
+            $table->string('name');
             $table->timestamps();
         });
     }
@@ -26,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('p_q_r_types');
+        Schema::dropIfExists('pqr_types');
     }
 };

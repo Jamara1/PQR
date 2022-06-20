@@ -2,6 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PQRRequest;
+use App\Models\PQR;
+use App\Models\PQRType;
+use DateInterval;
+use DateTime;
 use Illuminate\Http\Request;
 
 class PQRController extends Controller
@@ -26,7 +31,8 @@ class PQRController extends Controller
      */
     public function index()
     {
-        return view('pqr.index');
+        $pqr = PQR::all();
+        return view('pqr.index', compact('pqr'));
     }
 
     /**
@@ -36,7 +42,8 @@ class PQRController extends Controller
      */
     public function create()
     {
-        //
+        $pqrTypes = PQRType::all();
+        return view('pqr.create', compact('pqrTypes'));
     }
 
     /**
@@ -47,7 +54,30 @@ class PQRController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $date = date("Y-m-d H:i:s");
+        $mod_date = null;
+
+        //Increasing 2 days
+        $request['user_id'] = auth()->id();
+
+        if ($request['pqr_type_id'] == 1) {
+            $mod_date = strtotime($date . "+ 7 days");
+        }
+
+        if ($request['pqr_type_id'] == 2) {
+            $mod_date = strtotime($date . "+ 3 days");
+        }
+
+        if ($request['pqr_type_id'] == 3) {
+            $mod_date = strtotime($date . "+ 2 days");
+        }
+
+        $request['deadline_date'] = date("Y-m-d H:i:s", $mod_date);
+
+        PQR::create($request->except('_token'));
+
+        return redirect()->route('pqr.index');
     }
 
     /**

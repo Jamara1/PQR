@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <x-card title="PQR" showCreate="true" routeCreate="usuarios.create">
+    <x-card title="PQR" showCreate="true" routeCreate="pqr.create">
         <div class="row">
             <div class="col-sm-12">
                 <a href="http://">
