@@ -15,4 +15,12 @@ class PQRType extends Model
      * @var string
      */
     protected $table = 'pqr_types';
+
+    /**
+     * Get the comments for the blog post.
+     */
+    public function pqrs()
+    {
+        return $this->hasMany(PQR::class);
+    }
 }

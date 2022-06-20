@@ -18,6 +18,7 @@ return new class extends Migration
             $table->foreignId('user_id');
             $table->foreignId('pqr_type_id');
             $table->string('subject');
+            $table->string('status');
             $table->dateTime('deadline_date');
             $table->timestamps();
         });

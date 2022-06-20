@@ -44,4 +44,12 @@ class User extends Authenticatable implements Auditable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * Get the comments for the blog post.
+     */
+    public function pqrs()
+    {
+        return $this->hasMany(PQR::class);
+    }
 }

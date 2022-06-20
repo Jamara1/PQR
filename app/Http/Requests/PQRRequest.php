@@ -24,10 +24,27 @@ class PQRRequest extends FormRequest
     public function rules()
     {
         return [
-            'user_id' => 'required|numeric|exists:users,id',
+            'user_id' => 'numeric|exists:users,id',
             'pqr_type_id' => 'required|numeric|exists:pqr_types,id',
             'subject' => 'required|string|min:5|max:200',
-            'deadline_date' => 'required|date',
+            'status' => 'numeric',
+            'deadline_date' => 'date',
+        ];
+    }
+
+    /**
+     * Get the validation attributes that apply to the request.
+     *
+     * @return array<string, mixed>
+     */
+    public function attributes()
+    {
+        return [
+            'user_id' => strtolower(__('User')),
+            'pqr_type_id' => strtolower(__('PQR type')),
+            'subject' => strtolower(__('Subject')),
+            'status' => strtolower(__('Status')),
+            'deadline_date' => strtolower(__('Deadline date')),
         ];
     }
 }

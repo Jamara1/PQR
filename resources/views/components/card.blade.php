@@ -1,7 +1,7 @@
-@props(['title' => 'Title default', 'showCreate' => false, 'routeCreate' => 'home'])
+@props(['title' => 'Title default', 'showCreate' => false, 'showReturn' => false, 'routeCreate' => 'home', 'routeReturn' => 'home'])
 
 <div class="row justify-content-center">
-    <div class="col-md-10">
+    <div class="col-md-11">
         <div class="card">
             <div class="card-header">
                 <div class="row">
@@ -11,8 +11,16 @@
 
                     @if ($showCreate)
                         <div class="col-sm-2 text-end">
-                            <a class="btn btn-warning text-white" href="{{ route($routeCreate) }}">
+                            <a class="btn btn-warning fw-bold" href="{{ route($routeCreate) }}">
                                 {{ __('New') }}
+                            </a>
+                        </div>
+                    @endif
+
+                    @if ($showReturn)
+                        <div class="col-sm-2 text-end">
+                            <a class="btn btn-danger text-white" href="{{ route($routeReturn) }}">
+                                {{ __('Return') }}
                             </a>
                         </div>
                     @endif

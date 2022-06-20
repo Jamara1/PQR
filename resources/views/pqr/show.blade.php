@@ -1,8 +1,10 @@
 @extends('layouts.app')
 
 @section('content')
-    <x-card title="Create PQR" showReturn="true" routeReturn="pqr.index">
-        <form action="{{ route('pqr.store') }}" method="post">
+    <x-card title="Edit PQR" showReturn="true" routeReturn="pqr.index">
+
+        <form action="{{ route('pqr.update') }}" method="post">
+            {{ method_field('PUT') }}
             @csrf
             <div class="row">
 

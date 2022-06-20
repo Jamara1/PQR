@@ -9,7 +9,7 @@
                 </a>
             </div>
             <div class="col-sm-12">
-                <x-table></x-table>
+                <x-table :headers=$headers :data=$data></x-table>
             </div>
         </div>
     </x-card>

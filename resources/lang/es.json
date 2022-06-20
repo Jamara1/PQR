@@ -34,6 +34,7 @@
 
 
     "Users":  "Usuarios",
+    "User":  "Usuario",
     "Home":  "Inicio",
     "Introduction":  "Introducción",
     "Definition":  "Definición",
@@ -41,8 +42,15 @@
     "New":  "Nuevo",
     "PQR": "PQR",
     "Create PQR": "Crear PQR",
+    "Edit PQR": "Editar PQR",
     "PQR type": "Tipo de PQR",
+    "Deadline date": "Fecha límite",
     "Select": "Seleccione",
     "Subject": "Asunto",
-    "Send": "Enviar"
+    "Send": "Enviar",
+
+    "Created at": "Fecha de creación",
+    "Status": "Estado",
+    "Options": "Opciones",
+    "Return": "Regresar"
 }

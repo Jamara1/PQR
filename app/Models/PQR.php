@@ -28,6 +28,37 @@ class PQR extends Model implements Auditable
         'user_id',
         'pqr_type_id',
         'subject',
+        'status',
         'deadline_date',
     ];
+
+    /**
+     * Get the user that owns the comment.
+     */
+    public function status()
+    {
+        $options = [
+            1 => __('New'),
+            2 => __('In progress'),
+            3 => __('Closed'),
+        ];
+
+        return $options;
+    }
+
+    /**
+     * Get the user that owns the comment.
+     */
+    public function users()
+    {
+        return $this->belongsTo(User::class, 'user_id')->withDefault();
+    }
+
+    /**
+     * Get the pqr types that owns the comment.
+     */
+    public function pqrTypes()
+    {
+        return $this->belongsTo(PQRType::class, 'pqr_type_id')->withDefault();
+    }
 }
