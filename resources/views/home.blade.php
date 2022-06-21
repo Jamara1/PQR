@@ -29,7 +29,7 @@
                     {{ __('pqr.definition_2') }}
                 </p>
 
-                @can('pqr.index')
+                @can('pqr.create')
                     <div class="text-end">
                         <a class="btn btn-success" href="{{ route('pqr.create') }}">
                             {{ __('Create a PQR') }}

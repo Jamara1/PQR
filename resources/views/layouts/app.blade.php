@@ -74,9 +74,18 @@
                                 </li>
                             @endcan
 
+                            @role('admin')
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('pqr.index') }}">PQR</a>
                             </li>
+                            @endrole
+
+                            @role('user')
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('pqr.index.user', auth()->user()->email) }}">PQR</a>
+                            </li>
+                            @endrole
+
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
                                     data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -84,6 +93,9 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{ route('password.edit', auth()->id()) }}">
+                                        {{ __('Change Password') }}
+                                    </a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                         onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">

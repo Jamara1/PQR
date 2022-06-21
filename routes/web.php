@@ -24,7 +24,15 @@ Route::get('/inicio', [App\Http\Controllers\HomeController::class, 'index'])->na
 
 
 Route::group(['middleware' => ['auth']], function() {
+    /* Users */
     Route::resource('usuarios', App\Http\Controllers\UserController::class);
+
+    /* Password */
+    Route::get('password/{usuario}/editar', [App\Http\Controllers\PasswordController::class, 'edit'])->name('password.edit');
+    Route::put('password/{usuario}', [App\Http\Controllers\PasswordController::class, 'update'])->name('password.update');
+
+    /* PQR */
     Route::resource('pqr', App\Http\Controllers\PQRController::class);
+    Route::get('pqr/{email}', [App\Http\Controllers\PQRController::class, 'indexPqrForUser'])->name('pqr.index.user');
     Route::put('pqr/{pqr}/change-status', [App\Http\Controllers\PQRController::class, 'changeStatus'])->name('pqr.change.status');
 });

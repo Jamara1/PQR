@@ -25,13 +25,14 @@ class RoleSeeder extends Seeder
             'user.edit',
             'user.delete',
             'pqr.index',
+            'pqr.index.user',
             'pqr.create',
             'pqr.edit',
             'pqr.delete',
         ];
 
         $userPermissions = [
-            'pqr.index',
+            'pqr.index.user',
             'pqr.create',
         ];
 

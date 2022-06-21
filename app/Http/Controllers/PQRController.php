@@ -16,10 +16,11 @@ class PQRController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('permission:pqr.index|pqr.create|pqr.edit|pqr.delete', ['only' => ['index']]);
+        $this->middleware('permission:pqr.index|pqr.edit|pqr.delete', ['only' => ['index']]);
         $this->middleware('permission:pqr.create', ['only' => ['create', 'store']]);
-        $this->middleware('permission:pqr.edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:pqr.edit', ['only' => ['edit', 'update', 'changeStatus']]);
         $this->middleware('permission:pqr.delete', ['only' => ['destroy']]);
+        $this->middleware('permission:pqr.index.user', ['only' => ['indexPqrForUser']]);
     }
 
     /**
@@ -90,7 +91,11 @@ class PQRController extends Controller
 
         PQR::create($request->except('_token'));
 
-        return redirect()->route('pqr.index');
+        if (auth()->user()->roles[0]->name == 'admin') {
+            return redirect()->route('pqr.index');
+        } else {
+            return redirect()->route('pqr.index.user', auth()->user()->email);
+        }
     }
 
     /**
@@ -160,6 +165,31 @@ class PQRController extends Controller
     {
         $pqr->delete();
         return redirect()->route('pqr.index');
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  App\Http\Requests\PQRRequest  $request
+     * @param  PQR  $pqr
+     * @return \Illuminate\Http\Response
+     */
+    public function indexPqrForUser($email)
+    {
+        $pqrs = PQR::all();
+        $pqrDTO = new PQRDTO($pqrs);
+        $headers = [
+            __('#'),
+            __('User'),
+            __('PQR type'),
+            __('Status'),
+            __('Created at'),
+            __('Deadline date'),
+            __('Options'),
+        ];
+        $data = $pqrDTO->pqrIndexMap();
+
+        return view('pqr.index', compact('headers', 'data'));
     }
 
     /**

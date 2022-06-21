@@ -4,8 +4,8 @@
     <x-card title="Edit user" showReturn="true" routeReturn="usuarios.index">
 
         <form action="{{ route('usuarios.update', $usuario->id) }}" method="post">
-            {{ method_field('PUT') }}
             @csrf
+            {{ method_field('PUT') }}
 
             <div class="col-sm-12 mb-2">
                 <x-form-input label="Name" name="name" type="text" :dataShow=$usuario />

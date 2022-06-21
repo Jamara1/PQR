@@ -20,6 +20,7 @@ class PermissionSeeder extends Seeder
             'user.edit',
             'user.delete',
             'pqr.index',
+            'pqr.index.user',
             'pqr.create',
             'pqr.edit',
             'pqr.delete',

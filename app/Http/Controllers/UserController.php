@@ -18,7 +18,7 @@ class UserController extends Controller
     {
         $this->middleware('permission:user.index|user.create|user.edit|user.delete', ['only' => ['index']]);
         $this->middleware('permission:user.create', ['only' => ['create', 'store']]);
-        $this->middleware('permission:user.edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:user.edit', ['only' => ['edit', 'update', 'updatePassword']]);
         $this->middleware('permission:user.delete', ['only' => ['destroy']]);
     }
 
@@ -99,7 +99,7 @@ class UserController extends Controller
      */
     public function update(UserRequest $request, User $usuario)
     {
-        $usuario->update($request->except('_token', 'password'));
+        $usuario->update($request->only('name', 'email'));
         return redirect()->route('usuarios.index');
     }
 
