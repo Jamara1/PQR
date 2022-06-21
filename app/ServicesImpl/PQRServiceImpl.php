@@ -93,7 +93,7 @@ final class PQRServiceImpl implements PQRService
 
     public function findPqrForUser(): array
     {
-        $pqrs = PQR::where('user_id', auth()->user());
+        $pqrs = PQR::where('user_id', auth()->id())->get();
         $pqrDTO = new PQRDTO($pqrs);
         $headers = [
             __('#'),

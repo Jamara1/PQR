@@ -31,11 +31,11 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('password/{usuario}/editar', [App\Http\Controllers\PasswordController::class, 'edit'])->name('password.edit');
     Route::put('password/{usuario}', [App\Http\Controllers\PasswordController::class, 'update'])->name('password.update');
 
-    /* PQR */
-    Route::resource('pqr', App\Http\Controllers\PQRController::class);
-    Route::get('pqr/{email}', [App\Http\Controllers\PQRController::class, 'indexPqrForUser'])->name('pqr.index.user');
-    Route::put('pqr/{pqr}/change-status', [App\Http\Controllers\PQRController::class, 'changeStatus'])->name('pqr.change.status');
-
     /* Export PQR in Excel */
     Route::get('pqr/export', [App\Http\Controllers\PQRController::class, 'export'])->name('pqr.export');
+
+    /* PQR */
+    Route::get('pqr/{email}', [App\Http\Controllers\PQRController::class, 'indexPqrForUser'])->name('pqr.index.user');
+    Route::resource('pqr', App\Http\Controllers\PQRController::class);
+    Route::put('pqr/{pqr}/change-status', [App\Http\Controllers\PQRController::class, 'changeStatus'])->name('pqr.change.status');
 });

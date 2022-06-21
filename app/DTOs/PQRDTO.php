@@ -60,4 +60,30 @@ final class PQRDTO
 
         return $data;
     }
+
+    public function exportMap() {
+        $data = $this->pqrs->map(function ($pqr) {
+
+            $status = '';
+
+            if ($pqr->status == 1) {
+                $status = __('New');
+            } else if ($pqr->status == 2) {
+                $status = __('In progress');
+            } else {
+                $status = __('Closed');
+            }
+
+            return [
+                'id' => $pqr->id,
+                'username' => $pqr->users->name,
+                'pqr_type' => $pqr->pqrTypes->name,
+                'status' => $status,
+                'created_at' => $pqr->created_at,
+                'deadline_date' => date("d-m-Y", strtotime($pqr->deadline_date)),
+            ];
+        });
+
+        return $data;
+    }
 }

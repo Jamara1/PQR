@@ -29,7 +29,7 @@ class PQRController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
+     * Display a listing of the user.
      *
      * @return \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory
      */
@@ -42,23 +42,23 @@ class PQRController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show the form for creating a new user.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory
      */
-    public function create()
+    public function create(): \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory
     {
         $pqrTypes = PQRType::all();
         return view('pqr.create', compact('pqrTypes'));
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created user in storage.
      *
      * @param  App\Http\Requests\PQRRequest  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
      */
-    public function store(PQRRequest $request)
+    public function store(PQRRequest $request): \Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
     {
         $this->pqrServiceImpl->save($request);
 
@@ -73,9 +73,9 @@ class PQRController extends Controller
      * Display the specified resource.
      *
      * @param  PQR  $pqr
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory
      */
-    public function show(PQR $pqr)
+    public function show(PQR $pqr): \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory
     {
         return view('pqr.show', compact('pqr'));
     }
@@ -84,9 +84,9 @@ class PQRController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  PQR  $pqr
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory
      */
-    public function edit(PQR $pqr)
+    public function edit(PQR $pqr): \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory
     {
         if ($pqr->status == 3) {
             return redirect()->route('pqr.index');
@@ -101,9 +101,9 @@ class PQRController extends Controller
      *
      * @param  App\Http\Requests\PQRRequest  $request
      * @param  PQR  $pqr
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
      */
-    public function update(PQRRequest $request, PQR $pqr)
+    public function update(PQRRequest $request, PQR $pqr): \Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
     {
         $this->pqrServiceImpl->update($request, $pqr);
         return redirect()->route('pqr.index');
@@ -113,9 +113,9 @@ class PQRController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  PQR  $pqr
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
      */
-    public function destroy(PQR $pqr)
+    public function destroy(PQR $pqr): \Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
     {
         if ($pqr->status == 3) {
             return redirect()->route('pqr.index');
@@ -130,12 +130,12 @@ class PQRController extends Controller
      *
      * @param  App\Http\Requests\PQRRequest  $request
      * @param  PQR  $pqr
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory
      */
-    public function indexPqrForUser($email)
+    public function indexPqrForUser($email): \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory
     {
-        $headers = $this->pqrServiceImpl->findAllIndex()[0];
-        $data = $this->pqrServiceImpl->findAllIndex()[1];
+        $headers = $this->pqrServiceImpl->findPqrForUser()[0];
+        $data = $this->pqrServiceImpl->findPqrForUser()[1];
         return view('pqr.index', compact('headers', 'data'));
     }
 
@@ -144,9 +144,9 @@ class PQRController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  PQR  $pqr
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
      */
-    public function changeStatus(PQR $pqr)
+    public function changeStatus(PQR $pqr): \Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
     {
         $this->pqrServiceImpl->updateStatus($pqr);
         return redirect()->route('pqr.index');
@@ -155,9 +155,9 @@ class PQRController extends Controller
     /**
      * Export pqrs in storage.
      *
-     * @return \Illuminate\Http\Response
+     * \Symfony\Component\HttpFoundation\BinaryFileResponse
      */
-    public function export()
+    public function export(): \Symfony\Component\HttpFoundation\BinaryFileResponse
     {
         return Excel::download(new PQRExport, 'pqrs.xlsx');
     }
