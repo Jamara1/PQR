@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\DTOs\UserDTO;
 use App\Http\Requests\UserRequest;
 use App\Models\User;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -28,7 +29,18 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view('user.index');
+        $userDTO = new UserDTO();
+        $headers = [
+            __('#'),
+            __('Name'),
+            __('E-Mail Address'),
+            __('Role'),
+            __('Created at'),
+            __('Options'),
+        ];
+        $data = $userDTO->userIndexMap();
+
+        return view('user.index', compact('headers', 'data'));
     }
 
     /**
@@ -38,7 +50,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        return view('user.create');
     }
 
     /**
@@ -49,10 +61,11 @@ class UserController extends Controller
      */
     public function store(UserRequest $request)
     {
-        $user = User::create($request);
+        $request['password'] = Hash::make($request['password']);
+        $user = User::create($request->except('_token'));
         $user->assignRole('admin');
 
-        return $user;
+        return redirect()->route('usuarios.index');
     }
 
     /**
@@ -61,9 +74,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(User $usuario)
     {
-        //
+        return view('user.show', compact('usuario'));
     }
 
     /**
@@ -72,9 +85,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(User $usuario)
     {
-        //
+        return view('user.edit', compact('usuario'));
     }
 
     /**
@@ -84,9 +97,10 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UserRequest $request, User $usuario)
     {
-        //
+        $usuario->update($request->except('_token', 'password'));
+        return redirect()->route('usuarios.index');
     }
 
     /**

@@ -31,7 +31,7 @@
 
                 @can('pqr.index')
                     <div class="text-end">
-                        <a class="btn btn-success" href="{{ route('pqr.index') }}">
+                        <a class="btn btn-success" href="{{ route('pqr.create') }}">
                             {{ __('Create a PQR') }}
                         </a>
                     </div>

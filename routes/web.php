@@ -26,4 +26,5 @@ Route::get('/inicio', [App\Http\Controllers\HomeController::class, 'index'])->na
 Route::group(['middleware' => ['auth']], function() {
     Route::resource('usuarios', App\Http\Controllers\UserController::class);
     Route::resource('pqr', App\Http\Controllers\PQRController::class);
+    Route::put('pqr/{pqr}/change-status', [App\Http\Controllers\PQRController::class, 'changeStatus'])->name('pqr.change.status');
 });

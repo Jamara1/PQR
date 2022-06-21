@@ -19,6 +19,7 @@
                         {{ __('Send') }}
                     </button>
                 </div>
+            </div>
         </form>
     </x-card>
 @endsection

@@ -6,7 +6,6 @@ use App\DTOs\PQRDTO;
 use App\Http\Requests\PQRRequest;
 use App\Models\PQR;
 use App\Models\PQRType;
-use Illuminate\Http\Request;
 
 class PQRController extends Controller
 {
@@ -30,9 +29,10 @@ class PQRController extends Controller
      */
     public function index()
     {
-
-        $pqrDTO = new PQRDTO();
+        $pqrs = PQR::all();
+        $pqrDTO = new PQRDTO($pqrs);
         $headers = [
+            __('#'),
             __('User'),
             __('PQR type'),
             __('Status'),
@@ -42,7 +42,7 @@ class PQRController extends Controller
         ];
         $data = $pqrDTO->pqrIndexMap();
 
-        return view('pqr.index', compact('headers','data'));
+        return view('pqr.index', compact('headers', 'data'));
     }
 
     /**
@@ -59,7 +59,7 @@ class PQRController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  App\Http\Requests\PQRRequest  $request
      * @return \Illuminate\Http\Response
      */
     public function store(PQRRequest $request)
@@ -96,18 +96,18 @@ class PQRController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  PQR  $pqr
      * @return \Illuminate\Http\Response
      */
     public function show(PQR $pqr)
     {
-        //
+        return view('pqr.show', compact('pqr'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  PQR  $pqr
      * @return \Illuminate\Http\Response
      */
     public function edit(PQR $pqr)
@@ -119,8 +119,8 @@ class PQRController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  App\Http\Requests\PQRRequest  $request
+     * @param  PQR  $pqr
      * @return \Illuminate\Http\Response
      */
     public function update(PQRRequest $request, PQR $pqr)
@@ -146,17 +146,37 @@ class PQRController extends Controller
         $request['deadline_date'] = date("Y-m-d H:i:s", $mod_date);
 
         $pqr->update($request->except('_token'));
+
         return redirect()->route('pqr.index');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  PQR  $pqr
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(PQR $pqr)
     {
-        //
+        $pqr->delete();
+        return redirect()->route('pqr.index');
+    }
+
+    /**
+     * Update status of the specified pqr in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  PQR  $pqr
+     * @return \Illuminate\Http\Response
+     */
+    public function changeStatus(PQR $pqr)
+    {
+        if ($pqr->status == 1) {
+            $pqr->update(['status' => 2]);
+        } else if ($pqr->status == 2) {
+            $pqr->update(['status' => 3]);
+        }
+
+        return redirect()->route('pqr.index');
     }
 }

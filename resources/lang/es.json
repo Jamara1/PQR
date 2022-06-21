@@ -30,16 +30,19 @@
     "Before proceeding, please check your email for a verification link.": "Antes de poder continuar, por favor, confirma tu correo electrónico con el enlace que te hemos enviado.",
     "If you did not receive the email": "Si no has recibido el email",
     "click here to request another": "pulsa aquí para que te enviemos otro",
-    "All rights reserved.":  "Todos los derechos reservados.",
+    "All rights reserved.": "Todos los derechos reservados.",
 
-
-    "Users":  "Usuarios",
-    "User":  "Usuario",
-    "Home":  "Inicio",
-    "Introduction":  "Introducción",
-    "Definition":  "Definición",
-    "Create a PQR":  "Crear un PQR",
-    "New":  "Nuevo",
+    "Users": "Usuarios",
+    "Create user": "Crear usuario",
+    "Edit user": "Editar usuario",
+    "User": "Usuario",
+    "Home": "Inicio",
+    "Introduction": "Introducción",
+    "Definition": "Definición",
+    "Create a PQR": "Crear un PQR",
+    "In progress": "En progreso",
+    "Closed": "Cerrado",
+    "New": "Nuevo",
     "PQR": "PQR",
     "Create PQR": "Crear PQR",
     "Edit PQR": "Editar PQR",
@@ -52,5 +55,6 @@
     "Created at": "Fecha de creación",
     "Status": "Estado",
     "Options": "Opciones",
-    "Return": "Regresar"
+    "Return": "Regresar",
+    "Role": "Rol"
 }

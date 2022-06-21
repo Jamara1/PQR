@@ -9,14 +9,32 @@ use DateTime;
 
 final class PQRDTO
 {
+
+    private $pqrs;
+
+    public function __construct($pqrs)
+    {
+        $this->pqrs = $pqrs;
+    }
+
     public function pqrIndexMap()
     {
-        $data = PQR::all()->map(function ($pqr) {
+        $data = $this->pqrs->map(function ($pqr) {
+
+            $status = '';
+
+            if ($pqr->status == 1) {
+                $status = __('New');
+            } else if ($pqr->status == 2) {
+                $status = __('In progress');
+            } else {
+                $status = __('Closed');
+            }
 
             return [
                 'username' => $pqr->users->name,
                 'pqr_type' => $pqr->pqrTypes->name,
-                'status' => $pqr->status,
+                'status' => $status,
                 'created_at' => $pqr->created_at->format('d-m-Y'),
                 'deadline_date' => date("d-m-Y", strtotime($pqr->deadline_date)),
                 'options' => [

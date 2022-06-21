@@ -1,23 +1,33 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Dashboard') }}</div>
+    <x-card title="Create user" showReturn="true" routeReturn="usuarios.index">
+        <form action="{{ route('usuarios.store') }}" method="post">
+            @csrf
+            <div class="row">
 
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
+                <div class="col-sm-12 mb-2">
+                    <x-form-input label="Name" name="name" type="text"></x-form-input>
+                </div>
 
-                    {{ __('You are logged in!') }}
+                <div class="col-sm-12 mb-2">
+                    <x-form-input label="E-Mail Address" name="email" type="email"></x-form-input>
+                </div>
+
+                <div class="col-sm-12 mb-2">
+                    <x-form-input label="Password" name="password" type="password"></x-form-input>
+                </div>
+
+                <div class="col-sm-12">
+                    <x-form-input label="Confirm Password" name="password_confirmation" type="password"></x-form-input>
+                </div>
+
+                <div class="col-sm-12 text-end mt-4">
+                    <button type="submit" class="btn btn-success">
+                        {{ __('Send') }}
+                    </button>
                 </div>
             </div>
-        </div>
-    </div>
-</div>
+        </form>
+    </x-card>
 @endsection

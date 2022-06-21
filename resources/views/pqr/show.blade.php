@@ -1,26 +1,48 @@
 @extends('layouts.app')
 
 @section('content')
-    <x-card title="Edit PQR" showReturn="true" routeReturn="pqr.index">
+    <x-card title="PQR" showReturn="true" routeReturn="pqr.index">
 
-        <form action="{{ route('pqr.update') }}" method="post">
+        <div class="row">
+            <div class="col-sm-6 mb-3">
+                <x-textview label="User" data="{{ $pqr->users->name }}" />
+            </div>
+
+            <div class="col-sm-6 mb-3">
+                <x-textview label="PQR type" data="{{ $pqr->pqrTypes->name }}" />
+            </div>
+
+            <div class="col-sm-12">
+                <x-textview label="Subject" data="{{ $pqr->subject }}" />
+            </div>
+        </div>
+
+        <form action="{{ route('pqr.change.status', $pqr->id) }}" method="post">
             {{ method_field('PUT') }}
             @csrf
-            <div class="row">
-
-                <div class="col-sm-12 mb-3">
-                    <x-form-select label="PQR type" name="pqr_type_id" :data=$pqrTypes></x-form-select>
-                </div>
-
-                <div class="col-sm-12">
-                    <x-form-textarea label="Subject" name="subject"></x-form-textarea>
-                </div>
-
+            @can('pqr.edit')
                 <div class="col-sm-12 text-end mt-4">
-                    <button type="submit" class="btn btn-success">
-                        {{ __('Send') }}
-                    </button>
+                    @switch($pqr->status)
+                        @case(1)
+                            <button type="submit" class="btn btn-success">
+                                {{ __('New') }}
+                            </button>
+                        @break
+
+                        @case(2)
+                            <button type="submit" class="btn btn-warning fw-bold">
+                                {{ __('In progress') }}
+                            </button>
+                        @break
+
+                        @case(3)
+                            <button type="submit" class="btn btn-danger" disabled>
+                                {{ __('Closed') }}
+                            </button>
+                        @break
+                    @endswitch
                 </div>
+            @endcan
         </form>
     </x-card>
 @endsection
