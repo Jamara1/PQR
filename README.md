@@ -1,64 +1,49 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+## Sobre Gestor PQR
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Es un sistema que permite crear, editar, eliminar y cambiar el estado en el que s encuentra la PQR (Peticiones, quejas y reclamos) por ds tipos de usuario Administrador y usuario.
 
-## About Laravel
+## Administradores
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- Inicia con un administrador poorrdefect con credenciales:
+    - usuario: admin y contraseña: 123456789
+- Vista de inicio.
+- Este tipo de usuario solo puede ser cread por otro administrador en el formulario de creación de usuarios.
+- Crear, editar, listar y visualizar usuarios (La creación solo de administradores, el de usuario normal con el formulario del menu de inici de sesión).
+- Tiene permisos de creación, editar, listar y visualizar de los PQRs.
+- Descargar un informe en Excel de los PQRs. 
+- Cambiar la contraseña del usuario que tiene iniciado sesión.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Usuarios
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- Solamente puede registrarse en el formulario inicial de registro.
+- Vista de inicio.
+- Tiene permisos de creación de PQR y de la previzualicación que fuerón hechos por el propi usuario.
+- Cambiar la contraseña del usuario que tiene iniciado sesión.
 
-## Learning Laravel
+## Version de framework
+- Laravel 9
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Requerimientos
+- Xampp
+- Php 8^
+- Composer
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-## Laravel Sponsors
-
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
-
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## Ejecución
+- Copiar los elementos de este enlace en la carpeta raiz del proyecto PQR/ para mejor experiencia de usuario y de la base de datos:
+    - [Recursos](https://drive.google.com/drive/folders/1mRwthMAEycN-q-8EJFLqyu08jWu0oFdg?usp=sharing)
+- Ejecutar el comando:
+    - composer i
+Instalara los coomponentes necesarios de composer
+- Si da error composer i ejecutar el siguiente comando:
+    - composer i --ignore-platform-reqs
+- Ejecutar el comando:
+    - npm i
+Instalara los componentes necesarios de node
+- Crear base de datos establecida en el .env en el gestor mysql phpMyAdmin
+- Correr las migraciones con el comando:
+    - php artisan migrate:fresh --seed
+- Comando para ejecutar el servidor laravel:
+    - php artisan serve
+- Comando para ejecutar el servidor npm:
+    - npm run watch
+- Necesario ejecutar los dos servidores para mejor experiencia
