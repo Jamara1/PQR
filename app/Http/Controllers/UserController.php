@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\DTOs\UserDTO;
 use App\Http\Requests\UserRequest;
 use App\Models\User;
-use Illuminate\Support\Facades\Hash;
+use App\ServicesImpl\UserServiceImpl;
 
 class UserController extends Controller
 {
+    private $userServiceImpl;
     /**
      * Create a new controller instance.
      *
@@ -20,6 +20,8 @@ class UserController extends Controller
         $this->middleware('permission:user.create', ['only' => ['create', 'store']]);
         $this->middleware('permission:user.edit', ['only' => ['edit', 'update', 'updatePassword']]);
         $this->middleware('permission:user.delete', ['only' => ['destroy']]);
+
+        $this->userServiceImpl = new UserServiceImpl();
     }
 
     /**
@@ -29,17 +31,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        $userDTO = new UserDTO();
-        $headers = [
-            __('#'),
-            __('Name'),
-            __('E-Mail Address'),
-            __('Role'),
-            __('Created at'),
-            __('Options'),
-        ];
-        $data = $userDTO->userIndexMap();
-
+        $headers = $this->userServiceImpl->findAllIndex()[0];
+        $data = $this->userServiceImpl->findAllIndex()[1];
         return view('user.index', compact('headers', 'data'));
     }
 
@@ -61,10 +54,7 @@ class UserController extends Controller
      */
     public function store(UserRequest $request)
     {
-        $request['password'] = Hash::make($request['password']);
-        $user = User::create($request->except('_token'));
-        $user->assignRole('admin');
-
+        $this->userServiceImpl->save($request);
         return redirect()->route('usuarios.index');
     }
 
@@ -99,7 +89,7 @@ class UserController extends Controller
      */
     public function update(UserRequest $request, User $usuario)
     {
-        $usuario->update($request->only('name', 'email'));
+        $this->userServiceImpl->update($request, $usuario);
         return redirect()->route('usuarios.index');
     }
 

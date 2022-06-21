@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\DTOs\PQRDTO;
+use App\Exports\PQRExport;
 use App\Http\Requests\PQRRequest;
 use App\Models\PQR;
 use App\Models\PQRType;
+use App\ServicesImpl\PQRServiceImpl;
+use Maatwebsite\Excel\Facades\Excel;
 
 class PQRController extends Controller
 {
+    private $pqrServiceImpl;
     /**
      * Create a new controller instance.
      *
@@ -16,32 +19,24 @@ class PQRController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('permission:pqr.index|pqr.edit|pqr.delete', ['only' => ['index']]);
+        $this->middleware('permission:pqr.index|pqr.edit|pqr.delete', ['only' => ['index', 'export']]);
         $this->middleware('permission:pqr.create', ['only' => ['create', 'store']]);
         $this->middleware('permission:pqr.edit', ['only' => ['edit', 'update', 'changeStatus']]);
         $this->middleware('permission:pqr.delete', ['only' => ['destroy']]);
         $this->middleware('permission:pqr.index.user', ['only' => ['indexPqrForUser']]);
+
+        $this->pqrServiceImpl = new PQRServiceImpl();
     }
 
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory
      */
-    public function index()
+    public function index(): \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory
     {
-        $pqrs = PQR::all();
-        $pqrDTO = new PQRDTO($pqrs);
-        $headers = [
-            __('#'),
-            __('User'),
-            __('PQR type'),
-            __('Status'),
-            __('Created at'),
-            __('Deadline date'),
-            __('Options'),
-        ];
-        $data = $pqrDTO->pqrIndexMap();
+        $headers = $this->pqrServiceImpl->findAllIndex()[0];
+        $data = $this->pqrServiceImpl->findAllIndex()[1];
 
         return view('pqr.index', compact('headers', 'data'));
     }
@@ -65,31 +60,7 @@ class PQRController extends Controller
      */
     public function store(PQRRequest $request)
     {
-
-        $date = date("Y-m-d H:i:s");
-        $mod_date = null;
-
-        $request['user_id'] = auth()->id();
-        $request['status'] = 1;
-
-        if ($request['pqr_type_id'] == 1) {
-            //Increasing 7 days
-            $mod_date = strtotime($date . "+ 7 days");
-        }
-
-        if ($request['pqr_type_id'] == 2) {
-            //Increasing 3 days
-            $mod_date = strtotime($date . "+ 3 days");
-        }
-
-        if ($request['pqr_type_id'] == 3) {
-            //Increasing 2 days
-            $mod_date = strtotime($date . "+ 2 days");
-        }
-
-        $request['deadline_date'] = date("Y-m-d H:i:s", $mod_date);
-
-        PQR::create($request->except('_token'));
+        $this->pqrServiceImpl->save($request);
 
         if (auth()->user()->roles[0]->name == 'admin') {
             return redirect()->route('pqr.index');
@@ -117,6 +88,10 @@ class PQRController extends Controller
      */
     public function edit(PQR $pqr)
     {
+        if ($pqr->status == 3) {
+            return redirect()->route('pqr.index');
+        }
+
         $pqrTypes = PQRType::all();
         return view('pqr.edit', compact('pqr', 'pqrTypes'));
     }
@@ -130,28 +105,7 @@ class PQRController extends Controller
      */
     public function update(PQRRequest $request, PQR $pqr)
     {
-        $date = date("Y-m-d H:i:s");
-        $mod_date = null;
-
-        if ($request['pqr_type_id'] == 1) {
-            //Increasing 7 days
-            $mod_date = strtotime($date . "+ 7 days");
-        }
-
-        if ($request['pqr_type_id'] == 2) {
-            //Increasing 3 days
-            $mod_date = strtotime($date . "+ 3 days");
-        }
-
-        if ($request['pqr_type_id'] == 3) {
-            //Increasing 2 days
-            $mod_date = strtotime($date . "+ 2 days");
-        }
-
-        $request['deadline_date'] = date("Y-m-d H:i:s", $mod_date);
-
-        $pqr->update($request->except('_token'));
-
+        $this->pqrServiceImpl->update($request, $pqr);
         return redirect()->route('pqr.index');
     }
 
@@ -163,6 +117,10 @@ class PQRController extends Controller
      */
     public function destroy(PQR $pqr)
     {
+        if ($pqr->status == 3) {
+            return redirect()->route('pqr.index');
+        }
+
         $pqr->delete();
         return redirect()->route('pqr.index');
     }
@@ -176,19 +134,8 @@ class PQRController extends Controller
      */
     public function indexPqrForUser($email)
     {
-        $pqrs = PQR::all();
-        $pqrDTO = new PQRDTO($pqrs);
-        $headers = [
-            __('#'),
-            __('User'),
-            __('PQR type'),
-            __('Status'),
-            __('Created at'),
-            __('Deadline date'),
-            __('Options'),
-        ];
-        $data = $pqrDTO->pqrIndexMap();
-
+        $headers = $this->pqrServiceImpl->findAllIndex()[0];
+        $data = $this->pqrServiceImpl->findAllIndex()[1];
         return view('pqr.index', compact('headers', 'data'));
     }
 
@@ -201,12 +148,17 @@ class PQRController extends Controller
      */
     public function changeStatus(PQR $pqr)
     {
-        if ($pqr->status == 1) {
-            $pqr->update(['status' => 2]);
-        } else if ($pqr->status == 2) {
-            $pqr->update(['status' => 3]);
-        }
-
+        $this->pqrServiceImpl->updateStatus($pqr);
         return redirect()->route('pqr.index');
+    }
+
+    /**
+     * Export pqrs in storage.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function export()
+    {
+        return Excel::download(new PQRExport, 'pqrs.xlsx');
     }
 }

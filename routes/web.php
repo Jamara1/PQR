@@ -35,4 +35,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('pqr', App\Http\Controllers\PQRController::class);
     Route::get('pqr/{email}', [App\Http\Controllers\PQRController::class, 'indexPqrForUser'])->name('pqr.index.user');
     Route::put('pqr/{pqr}/change-status', [App\Http\Controllers\PQRController::class, 'changeStatus'])->name('pqr.change.status');
+
+    /* Export PQR in Excel */
+    Route::get('pqr/export', [App\Http\Controllers\PQRController::class, 'export'])->name('pqr.export');
 });

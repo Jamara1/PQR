@@ -4,9 +4,6 @@ declare(strict_types=1);
 
 namespace App\DTOs;
 
-use App\Models\PQR;
-use DateTime;
-
 final class PQRDTO
 {
 
@@ -22,6 +19,20 @@ final class PQRDTO
         $data = $this->pqrs->map(function ($pqr) {
 
             $status = '';
+            $options = [
+                'edit' => [
+                    'name' => 'edit',
+                    'route' => route('pqr.edit', $pqr->id)
+                ],
+                'show' => [
+                    'name' => 'show',
+                    'route' => route('pqr.show', $pqr->id)
+                ],
+                'destroy' => [
+                    'name' => 'destroy',
+                    'route' => route('pqr.destroy', $pqr->id)
+                ],
+            ];
 
             if ($pqr->status == 1) {
                 $status = __('New');
@@ -29,6 +40,12 @@ final class PQRDTO
                 $status = __('In progress');
             } else {
                 $status = __('Closed');
+                $options = [
+                    'show' => [
+                        'name' => 'show',
+                        'route' => route('pqr.show', $pqr->id)
+                    ],
+                ];
             }
 
             return [
@@ -37,20 +54,7 @@ final class PQRDTO
                 'status' => $status,
                 'created_at' => $pqr->created_at->format('d-m-Y'),
                 'deadline_date' => date("d-m-Y", strtotime($pqr->deadline_date)),
-                'options' => [
-                    'edit' => [
-                        'name' => 'edit',
-                        'route' => route('pqr.edit', $pqr->id)
-                    ],
-                    'show' => [
-                        'name' => 'show',
-                        'route' => route('pqr.show', $pqr->id)
-                    ],
-                    'destroy' => [
-                        'name' => 'destroy',
-                        'route' => route('pqr.destroy', $pqr->id)
-                    ],
-                ]
+                'options' => $options
             ];
         });
 

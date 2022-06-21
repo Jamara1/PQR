@@ -13,7 +13,9 @@
         "laravel/ui": "^3.4",
         "laravelcollective/html": "^6.3",
         "laraveles/spanish": "^1.5",
+        "maatwebsite/excel": "^3.1",
         "owen-it/laravel-auditing": "^13.0",
+        "psr/simple-cache": "1.0",
         "spatie/laravel-permission": "^5.5"
     },
     "require-dev": {
