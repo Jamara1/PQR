@@ -1,14 +1,14 @@
 ## Sobre Gestor PQR
 
-Es un sistema que permite crear, editar, eliminar y cambiar el estado en el que s encuentra la PQR (Peticiones, quejas y reclamos) por ds tipos de usuario Administrador y usuario.
+Es un sistema que permite crear, editar, eliminar y cambiar el estado en el que se encuentra la PQR (Peticiones, quejas y reclamos) por los tipos de usuario Administrador y usuario.
 
 ## Administradores
 
-- Inicia con un administrador poorrdefect con credenciales:
+- Inicia con un administrador por defecto con credenciales:
     - usuario: admin y contraseña: 123456789
 - Vista de inicio.
-- Este tipo de usuario solo puede ser cread por otro administrador en el formulario de creación de usuarios.
-- Crear, editar, listar y visualizar usuarios (La creación solo de administradores, el de usuario normal con el formulario del menu de inici de sesión).
+- Este tipo de usuario solo puede ser creado por otro administrador en el formulario de creación de usuarios.
+- Crear, editar, listar y visualizar usuarios (La creación solo de administradores, el de usuario normal con el formulario del menu de inicio de sesión).
 - Tiene permisos de creación, editar, listar y visualizar de los PQRs.
 - Descargar un informe en Excel de los PQRs. 
 - Cambiar la contraseña del usuario que tiene iniciado sesión.
@@ -17,7 +17,7 @@ Es un sistema que permite crear, editar, eliminar y cambiar el estado en el que 
 
 - Solamente puede registrarse en el formulario inicial de registro.
 - Vista de inicio.
-- Tiene permisos de creación de PQR y de la previzualicación que fuerón hechos por el propi usuario.
+- Tiene permisos de creación de PQR y de la previzualicación que fuerón hechos por el propio usuario.
 - Cambiar la contraseña del usuario que tiene iniciado sesión.
 
 ## Version de framework
@@ -33,12 +33,12 @@ Es un sistema que permite crear, editar, eliminar y cambiar el estado en el que 
     - [Recursos](https://drive.google.com/drive/folders/1mRwthMAEycN-q-8EJFLqyu08jWu0oFdg?usp=sharing)
 - Ejecutar el comando:
     - composer i
-Instalara los coomponentes necesarios de composer
+- Instalará los componentes necesarios de composer
 - Si da error composer i ejecutar el siguiente comando:
     - composer i --ignore-platform-reqs
 - Ejecutar el comando:
     - npm i
-Instalara los componentes necesarios de node
+- Instalará los componentes necesarios de node
 - Crear base de datos establecida en el .env en el gestor mysql phpMyAdmin
 - Correr las migraciones con el comando:
     - php artisan migrate:fresh --seed
