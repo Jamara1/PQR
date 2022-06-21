@@ -41,6 +41,8 @@ Es un sistema que permite crear, editar, eliminar y cambiar el estado en el que 
 - Instalará los componentes necesarios de node
 - Crear base de datos establecida en el .env en el gestor mysql phpMyAdmin
 - Correr las migraciones con el comando:
+    - php artisan migrate
+-  Ejecutar los seeders
     - php artisan migrate:fresh --seed
 - Comando para ejecutar el servidor laravel:
     - php artisan serve
