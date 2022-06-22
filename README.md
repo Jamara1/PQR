@@ -49,3 +49,9 @@ Es un sistema que permite crear, editar, eliminar y cambiar el estado en el que 
 - Comando para ejecutar el servidor npm:
     - npm run watch
 - Necesario ejecutar los dos servidores para mejor experiencia
+
+## Web
+- El archivo de las rutas web se encuentran en la carpeta routes/web.php
+
+## Api
+- El archivo de las rutas de api se encuentran en la carpeta routes/api.php cada ruta añadido en este archivo es agregado el sufijo api/*
