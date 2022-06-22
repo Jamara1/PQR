@@ -117,11 +117,7 @@ class PQRController extends Controller
      */
     public function destroy(PQR $pqr): \Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
     {
-        if ($pqr->status == 3) {
-            return redirect()->route('pqr.index');
-        }
-
-        $pqr->delete();
+        $this->pqrServiceImpl->destroy($pqr);
         return redirect()->route('pqr.index');
     }
 
@@ -132,10 +128,10 @@ class PQRController extends Controller
      * @param  PQR  $pqr
      * @return \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory
      */
-    public function indexPqrForUser($email): \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory
+    public function indexPqrForUser(): \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory
     {
-        $headers = $this->pqrServiceImpl->findPqrForUser()[0];
-        $data = $this->pqrServiceImpl->findPqrForUser()[1];
+        $headers = $this->pqrServiceImpl->findPqrForUserIndex()[0];
+        $data = $this->pqrServiceImpl->findPqrForUserIndex()[1];
         return view('pqr.index', compact('headers', 'data'));
     }
 

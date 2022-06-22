@@ -37,15 +37,6 @@ class User extends Authenticatable implements Auditable
     ];
 
     /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
-
-    /**
      * Get the comments for the blog post.
      */
     public function pqrs()

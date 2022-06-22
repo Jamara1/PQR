@@ -49,4 +49,9 @@ class UserServiceImpl implements Services
         $user->update($request->only('name', 'email'));
         return$user;
     }
+
+    public function destroy($model): array
+    {
+        return [];
+    }
 }

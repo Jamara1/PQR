@@ -8,6 +8,7 @@ use App\DTOs\PQRDTO;
 use App\Models\PQR;
 use App\Services\PQRService;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 
 final class PQRServiceImpl implements PQRService
 {
@@ -91,7 +92,22 @@ final class PQRServiceImpl implements PQRService
         return $pqr;
     }
 
-    public function findPqrForUser(): array
+    public function destroy($pqr): array
+    {
+        if ($pqr->status == 3) {
+            return [401, 'Closed status, no deletion allowed!'];
+        }
+
+        $pqr->delete();
+        return [200, $pqr];
+    }
+
+    public function findForUser(): Collection
+    {
+        return PQR::where('user_id', auth()->id())->get();
+    }
+
+    public function findPqrForUserIndex(): array
     {
         $pqrs = PQR::where('user_id', auth()->id())->get();
         $pqrDTO = new PQRDTO($pqrs);
