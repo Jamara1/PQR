@@ -17,12 +17,21 @@ Route::post('register', [App\Http\Controllers\Api\AuthController::class, 'regist
 Route::post('login', [App\Http\Controllers\Api\AuthController::class, 'login']);
 
 Route::group(['middleware' => ['auth:sanctum']], function() {
-    /* Users */
+    /* Auth */
     Route::get('user-profile', [App\Http\Controllers\Api\AuthController::class, 'userProfile']);
     Route::post('logout', [App\Http\Controllers\Api\AuthController::class, 'logout']);
+
+    /* Users */
     Route::apiResource('users', App\Http\Controllers\api\UserController::class);
-    Route::get('pqr/export', [App\Http\Controllers\api\PQRController::class, 'export']);
+
+    /* Pqrs */
     Route::get('pqr/user', [App\Http\Controllers\api\PQRController::class, 'indexPqrForUser']);
     Route::put('pqr/{pqr}/change-status', [App\Http\Controllers\api\PQRController::class, 'changeStatus']);
     Route::apiResource('pqr', App\Http\Controllers\api\PQRController::class);
+
+    /* Export PQR in Excel */
+    Route::get('pqr/export', [App\Http\Controllers\api\PQRController::class, 'export']);
+
+    /* Password */
+    Route::put('password/{user}', [App\Http\Controllers\api\PasswordController::class, 'update']);
 });

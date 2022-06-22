@@ -27,15 +27,16 @@ Route::group(['middleware' => ['auth']], function () {
     /* Users */
     Route::resource('usuarios', App\Http\Controllers\UserController::class);
 
-    /* Password */
-    Route::get('password/{usuario}/editar', [App\Http\Controllers\PasswordController::class, 'edit'])->name('password.edit');
-    Route::put('password/{usuario}', [App\Http\Controllers\PasswordController::class, 'update'])->name('password.update');
-
-    /* Export PQR in Excel */
-    Route::get('pqr/exportar', [App\Http\Controllers\PQRController::class, 'export'])->name('pqr.export');
 
     /* PQR */
     Route::get('pqr/usuario', [App\Http\Controllers\PQRController::class, 'indexPqrForUser'])->name('pqr.index.user');
     Route::put('pqr/{pqr}/cambiar-estado', [App\Http\Controllers\PQRController::class, 'changeStatus'])->name('pqr.change.status');
     Route::resource('pqr', App\Http\Controllers\PQRController::class);
+
+    /* Export PQR in Excel */
+    Route::get('pqr/exportar', [App\Http\Controllers\PQRController::class, 'export'])->name('pqr.export');
+
+    /* Password */
+    Route::get('password/{usuario}/editar', [App\Http\Controllers\PasswordController::class, 'edit'])->name('password.edit');
+    Route::put('password/{usuario}', [App\Http\Controllers\PasswordController::class, 'update'])->name('password.update');
 });
