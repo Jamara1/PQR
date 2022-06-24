@@ -1,6 +1,8 @@
 <?php
 
+use App\Mail\PQRExpiredMailable;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -39,4 +41,11 @@ Route::group(['middleware' => ['auth']], function () {
     /* Password */
     Route::get('password/{usuario}/editar', [App\Http\Controllers\PasswordController::class, 'edit'])->name('password.edit');
     Route::put('password/{usuario}', [App\Http\Controllers\PasswordController::class, 'update'])->name('password.update');
+});
+
+Route::get('pqr-expired', function() {
+    $email = new PQRExpiredMailable();
+    Mail::to('7.6amarajohan@gmail.com')->send($email);
+
+    return "Message send";
 });
