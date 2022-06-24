@@ -54,4 +54,4 @@ Es un sistema que permite crear, editar, eliminar y cambiar el estado en el que 
 - El archivo de las rutas web se encuentran en la carpeta routes/web.php
 
 ## Api
-- El archivo de las rutas de api se encuentran en la carpeta routes/api.php cada ruta añadido en este archivo es agregado el sufijo api/*
+- El archivo de las rutas de api se encuentran en la carpeta routes/api.php cada ruta añadido en este archivo es agregado el prefijo api/*
